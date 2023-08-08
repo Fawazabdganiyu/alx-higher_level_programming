@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-'''prints the ASCII alphabet, in lowercase, not followed by a new line, except q and e'''
+'''prints the ASCII alphabet, in lowercase,
+   not followed by a new line, except q and e'''
 character = 97
 while character >= 97 and character <= 122:
     if chr(character) == 'q' or chr(character) == 'e':
