@@ -25,11 +25,12 @@ listint_t *insert_node(listint_t **head, int number)
 	}
 	/* Consider other posibilities */
 	current = *head;
-	/* Consider when the number is <=  the first node data */
-	if (number <= current->n)
+	/* Consider when the number is <  the first node data */
+	if (number < (*head)->n)
 	{
 		new_node->next = *head;
 		*head = new_node;
+		return (new_node);
 	}
 	while (current)
 	{
