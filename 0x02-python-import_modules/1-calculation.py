@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 if __name__ == "__main__":
-    """does some Maths with functions from a file and print the result"""
     a = 10
     b = 5
     from calculator_1 import add, sub, mul, div
@@ -11,4 +10,4 @@ if __name__ == "__main__":
     result = mul(a, b)
     print("{:d} * {:d} = {:d}".format(a, b, result))
     result = div(a, b)
-    print("{:d} / {:d} = {:d}".format(a, b, div(a, b)))
+    print("{:d} / {:d} = {:d}".format(a, b, result))
