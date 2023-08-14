@@ -4,5 +4,5 @@ def multiple_returns(sentence):
     """
     length = len(sentence)
     str_0 = sentence[0]
-
-    return length, str_0
+    tuple_pack = length, str_0
+    return tuple_pack
