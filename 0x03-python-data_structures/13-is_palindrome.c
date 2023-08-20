@@ -1,25 +1,23 @@
 #include "lists.h"
-
+#include <stdio.h>
 /**
- * add_node - adds a new node at the beginning of a listint_t list
- * @head: A pointer to a head pointer
- * @n: An integer to be included in node
+ * reverse_list - reverses a listint_t list
+ * @head: A pointer to a head node
  *
- * Return: A pointer to the new node or NULL if it fails
+ * Return: A pointer to the head of the reversed node
  */
-listint_t *add_node(listint_t **head, const int n)
+listint_t *reverse_list(listint_t *head)
 {
-	listint_t *new_node;
+	listint_t *prev = NULL, *next;
 
-	new_node = malloc(sizeof(listint_t));
-	if (new_node == NULL)
-		return (NULL);
-
-	new_node->n = n;
-	new_node->next = *head;
-	*head = new_node;
-
-	return (new_node);
+	while (head)
+	{
+		next = head->next;
+		head->next = prev;
+		prev = head;
+		head = next;
+	}
+	return (prev);
 }
 
 /**
@@ -30,30 +28,36 @@ listint_t *add_node(listint_t **head, const int n)
  */
 int is_palindrome(listint_t **head)
 {
-	listint_t *head1, *head2 = NULL, *head2_cpy;
+	listint_t *slow, *fast, *first_half, *second_half, *mid, *second_half_copy;
 
-	if (*head == NULL)
+	if (*head == NULL || (*head)->next == NULL)
 		return (1);
-	/* Make a new list to look like the reverse of original list */
-	head1 = *head;
-	while (head1)
+	/* Get the middle of the list */
+	slow = *head;
+	fast = *head;
+	while (fast->next && fast->next->next)
 	{
-		add_node(&head2, head1->n);
-		head1 = head1->next;
+		slow = slow->next;
+		fast = fast->next->next;
 	}
-	/* Compare the data of the two lists */
-	head2_cpy = head2;
-	head1 = *head;
-	while (head1 && head2)
+
+	mid = slow;
+	first_half = *head;
+	second_half = reverse_list(slow->next);
+	second_half_copy = second_half;
+	/* Compare the first and second half data */
+	while (second_half != NULL)
 	{
-		if (head1->n != head2->n)
-		{
-			free_listint(head2);
+		if (first_half->n != second_half->n)
 			return (0);
-		}
-		head1 = head1->next;
-		head2 = head2->next;
+
+		first_half = first_half->next;
+		second_half = second_half->next;
 	}
-	free_listint(head2_cpy);
+
+	/* Reconnect the list */
+	second_half = reverse_list(second_half_copy);
+	mid->next = second_half;
+
 	return (1);
 }
