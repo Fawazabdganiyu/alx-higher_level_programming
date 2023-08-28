@@ -9,6 +9,7 @@ def safe_print_list(my_list=[], x=0):
     Return:
         The real number of element printed
     """
+    i = 0
     for i in range(x):
         try:
             print(my_list[i], end='')
@@ -17,3 +18,6 @@ def safe_print_list(my_list=[], x=0):
             break
     print()
     return i
+
+if __name__ == "__main__":
+    safe_print_list(my_list=[], x=0)
