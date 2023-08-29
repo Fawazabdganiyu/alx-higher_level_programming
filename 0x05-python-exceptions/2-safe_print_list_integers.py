@@ -9,16 +9,18 @@ def safe_print_list_integers(my_list=[], x=0):
     Return:
         The real number of integers printed
     """
+    ret = 0
     i = 0
     for i in range(x):
         try:
             print("{:d}".format(my_list[i]), end="")
             i += 1
         except (TypeError, ValueError):
+            ret += 1
             continue
     print()
-    return i
+    return i - ret
 
 
 if __name__ == "__main__":
-    safe_print_list_integers(my_list=[], x=0)
+    safe_print_list_integers(my_list=[1, 2, 3, 4, 5], x=2)
