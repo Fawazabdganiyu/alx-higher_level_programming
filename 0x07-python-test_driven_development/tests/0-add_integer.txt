@@ -1,0 +1,65 @@
+The ``0-add_integer`` module
+============================
+
+Using ``add_integer``
+--------------------
+
+This is 0-add_integer text file in reStructuredText format. First import ``add_integer`` from the ``0-add_integer`` module.
+The function adds 2 interger. If a float type is used, it is firstly casted to an integer.
+
+	>>> add_integer = __import__('0-add_integer').add_integer
+
+Now use it:
+
+Numbers
+=======
+
+Number must be a +ve or -ve integer:
+
+	>>> add_integer(1, 2)
+	3
+	>>> add_integer(100, -2)
+	98
+	>>> add_integer(-98, -2)
+	-100
+
+
+Only an argument can be passed, since argument b is optional:
+
+	>>> add_integer(2)
+	100
+
+
++ve or -ve float passed is casted to an integer:
+
+	>>> add_integer(98.5, 2.5)
+	100
+	>>> add_integer(100.3, -2.7)
+	98
+
+Non-Numbers
+===========
+
+TypeError is raised if an argument string, list, tuple etc.and not integer or float:
+
+	>>> add_integer(4, "School")
+	Traceback (most recent call last):
+	    ...
+	TypeError: b must be an integer
+
+	>>> add_integer("First")
+	Traceback (most recent call last):
+	    ...
+	TypeError: a must be an integer
+
+	>>> add_integer(None)
+	Traceback (most recent call last):
+	    ...
+	TypeError: a must be an integer
+
+Only the first error is raised with unsupported type:
+
+	>>> add_integer([1, 2, 3], [2, 3, 4])
+	Traceback (most recent call last):
+	    ...
+	TypeError: a must be an integer
