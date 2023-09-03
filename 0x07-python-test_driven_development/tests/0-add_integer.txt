@@ -63,3 +63,9 @@ Only the first error is raised with unsupported type:
 	Traceback (most recent call last):
 	    ...
 	TypeError: a must be an integer
+
+ TypeError is raised when an argument is boolean value:
+	>>> add_integer(True)
+	Traceback (most recent call last):
+	    ...
+	TypeError: a must be an integer
