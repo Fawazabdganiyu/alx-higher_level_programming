@@ -1,0 +1,86 @@
+The ``3-say_my_name`` module
+===========================
+
+Using ``say_my_name`` function
+-----------------------------
+
+This is a `3-say_my_name` text file in reStructuredText format. First import the function from ``3-say_my_name`` module
+
+The function prints "My name is <first name> <last name>".
+
+::
+
+	>>> say_my_name = __import__('3-say_my_name').say_my_name
+
+Now use it:
+
+Strings
+=======
+
+::
+	>>> say_my_name("Fawaz", "Abdganiyu")
+	My name is Fawaz Abdganiyu
+
+::
+
+	>>> say_my_name("John", "Smith")
+	My name is John Smith
+
+::
+
+	>>> say_my_name("Walter", "White")
+	My name is Walter White
+
+
+Only the first name can be passed:
+
+::
+
+	>>> say_my_name("Bob")
+	My name is Bob 
+
+
+Non-strings
+===========
+Any other type apart from `str` will raise a TypeError exception:
+
+::
+
+	>>> say_my_name(12, "White")
+	Traceback (most recent call last):
+	    ...
+	TypeError: first_name must be a string
+
+
+If `None` is passed, an exception is raised:
+
+::
+
+	>>> say_my_name(None)
+	Traceback (most recent call last):
+	    ...
+	TypeError: first_name must be a string
+
+
+If a tuple or list of strings is passed to any of the arguments, TypeError is raised:
+
+::
+
+	>>> say_my_name(("Abdullaah", "Muhammad"), "Sulaiman")
+	Traceback (most recent call last):
+	    ...
+	TypeError: first_name must be a string
+
+::
+
+	>>> say_my_name("Abdullaah", ("Muhammad", "Sulaiman"))
+	Traceback (most recent call last):
+	    ...
+	TypeError: last_name must be a string
+
+::
+
+	>>> say_my_name("Abdullaah", ["Muhammad", "Sulaiman"])
+	Traceback (most recent call last):
+	    ...
+	TypeError: last_name must be a string
