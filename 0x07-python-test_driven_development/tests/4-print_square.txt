@@ -96,3 +96,12 @@ The `size` can not also be passed as string:
 	Traceback (most recent call last):
 	    ...
 	TypeError: size must be an integer
+
+The argument cannot be missing:
+
+::
+
+	>>> print_square()
+	Traceback (most recent call last):
+	    ...
+	TypeError: print_square() missing 1 required positional argument: 'size'
