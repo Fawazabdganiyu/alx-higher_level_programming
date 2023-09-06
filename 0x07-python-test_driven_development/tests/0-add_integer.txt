@@ -69,3 +69,32 @@ Only the first error is raised with unsupported type:
 	Traceback (most recent call last):
 	    ...
 	TypeError: a must be an integer
+
+An exception would be raised if  float infinity is passed
+
+::
+
+        >>> add_integer(float('inf'))
+        Traceback (most recent call last):
+           ...
+        OverflowError: cannot convert float infinity to integer
+
+::
+
+Negative float infinity would raise the same exception
+
+::
+
+        >>> add_integer(float('-inf'))
+        Traceback (most recent call last):
+            ...
+        OverflowError: cannot convert float infinity to integer
+
+An exception would be raised if float NaN is passed
+
+::
+
+        >>> add_integer(float('nan'))
+        Traceback (most recent call last):
+            ...
+        ValueError: cannot convert float NaN to integer
