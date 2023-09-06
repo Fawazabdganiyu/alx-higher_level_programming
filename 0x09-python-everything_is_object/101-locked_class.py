@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Module Name: 101-locked_class.py
 Description: A `LockedClass` module.
