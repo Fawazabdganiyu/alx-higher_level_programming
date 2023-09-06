@@ -29,7 +29,38 @@ It can also work for matrix with float:
 	>>> print(matrix_divided(matrix, 2))
 	[[1.05, 1.1, 1.15], [1.55, 2.0, 2.5]]
 
-It can also work for signed integers:
+``matrix`` could be divided by float inf and give 0.0:
+
+::
+
+	>>> matrix_divided(matrix, float('inf'))
+	[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+
+With NaN, all the element is changed to NaN:
+
+::
+
+	>>> matrix_divided(matrix, float('nan'))
+	[[nan, nan, nan], [nan, nan, nan]]
+
+One argument cannot be missing:
+
+::
+
+	>>> matrix_divided(matrix)
+	Traceback (most recent call last):
+	    ...
+	TypeError: matrix_divided() missing 1 required positional argument: 'div'
+
+Both arguments cannot also be missing:
+
+::
+
+
+	>>> matrix_divided()
+	Traceback (most recent call last):
+	    ...
+	TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' and 'div'
 
 Non-numbers
 ===========
