@@ -1,0 +1,113 @@
+The ``1-my_list`` module
+========================
+
+Using ``MyList`` class that inherited built-in ``list``.
+--------------------------------------------------------
+The class also contain ``print_sorted`` method.
+
+First import the module ``1-my_list``.
+
+::
+
+	>>> MyList = __import__('1-my_list').MyList
+
+Now use it.
+
+::
+
+	>>> my_list = MyList()
+
+Add some elements to `my_list`
+
+::
+
+	>>> my_list.append(1)
+	>>> my_list.append(4)
+	>>> my_list.append(2)
+	>>> my_list.append(3)
+	>>> my_list.append(5)
+
+print `my_list`
+
+::
+	>>> print(my_list)
+	[1, 4, 2, 3, 5]
+
+The list would be sorted with the derieved class method ``print_sorted``
+
+::
+
+	>>> my_list.print_sorted()
+	[1, 2, 3, 4, 5]
+
+::
+
+The original list remain unchanged
+
+::
+
+	>>> print(my_list)
+	[1, 4, 2, 3, 5]
+
+A sorted list will remain sorted
+
+	>>> my_list2 = MyList()
+	>>> my_list2.append(0)
+	>>> my_list2.append(1)
+	>>> my_list2.append(2)
+	>>> my_list2.append(3)
+
+::
+
+	>>> print(my_list2)
+	[0, 1, 2, 3]
+
+::
+
+	>>> my_list2.print_sorted()
+	[0, 1, 2, 3]
+
+Other methods of ``list`` would still work
+
+::
+
+	>>> my_list.count(2)
+	1
+
+::
+
+	>>> my_list.index(3)
+	3
+
+::
+
+	>>> my_list.pop()
+	5
+
+::
+
+	>>> my_list.reverse()
+	>>> print(my_list)
+	[3, 2, 4, 1]
+
+``print_sorted`` cannot be used efficiently with with strings
+
+::
+
+	>>> my_str_list = MyList()
+	>>> my_str_list.append("Python")
+	>>> my_str_list.append("is")
+	>>> my_str_list.append("awesome")
+
+::
+
+	>>> print(my_str_list)
+	['Python', 'is', 'awesome']
+
+``print_sorted`` won't work properly
+
+::
+
+	>>> my_str_list.print_sorted()
+	['Python', 'awesome', 'is']
+
