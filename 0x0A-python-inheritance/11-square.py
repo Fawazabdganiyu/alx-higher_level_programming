@@ -79,6 +79,13 @@ class Square(Rectangle):
         super().__init__(size, size)
         self.__size = size
 
+    def __str__(self):
+        """Return str representation"""
+        rect_class = str(self.__class__.__name__)
+        rect_width = str(self.__width)
+        rect_height = str(self.__height)
+        return f"[{rect_class}] {rect_width}/{rect_height}"
+
     def area(self):
         """
         Returns Area of the square
