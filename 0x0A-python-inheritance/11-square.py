@@ -46,7 +46,41 @@ class Rectangle(BaseGeometry):
             height (int): The height of the geometry
 
         """
-        self.integer_validator("width", width)
+        super().integer_validator("width", width)
         self.__width = width
-        self.integer_validator("height", height)
+        super().integer_validator("height", height)
         self.__height = height
+
+    def __str__(self):
+        """Returns ``str`` representation of the rectangle
+        """
+        rect_class = str(self.__class__.__name__)
+        rect_width = str(self.__width)
+        rect_height = str(self.__height)
+        return f"[{rect_class}] {rect_width}/{rect_height}"
+
+    def area(self):
+        """
+        Returns the area of the rectangle
+        """
+        return self.__width * self.__height
+
+
+class Square(Rectangle):
+    """A representation of Square"""
+    def __init__(self, size):
+        """Instantiation
+
+        Args:
+            size (int): The size of the square
+
+        """
+        super().integer_validator("size", size)
+        super().__init__(size, size)
+        self.__size = size
+
+    def area(self):
+        """
+        Returns Area of the square
+        """
+        return self.__size ** 2
