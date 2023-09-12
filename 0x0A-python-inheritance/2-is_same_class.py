@@ -9,7 +9,7 @@ Author: Fawaz Abdganiyu <fawazabdganiyu@gmail.com>
 
 def is_same_class(obj, a_class):
     """
-    confirms if isinstance of a class
+    confirms if "obj" is exactly of type "a_class"
 
     Args:
         obj (obj): The object to confirm its class
