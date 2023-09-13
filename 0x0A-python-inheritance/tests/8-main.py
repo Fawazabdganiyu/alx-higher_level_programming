@@ -5,6 +5,7 @@ r = Rectangle(3, 5)
 
 print(r)
 print(dir(r))
+print(issubclass(Rectangle, BaseGeometry))
 
 try:
     print("Rectangle: {} - {}".format(r.width, r.height))
