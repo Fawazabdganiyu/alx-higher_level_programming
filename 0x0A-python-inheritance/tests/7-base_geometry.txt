@@ -1,0 +1,78 @@
+The ``7-base_geometry`` module
+==============================
+
+Using ``BaseGeometry`` class with ``area`` and ``integer_validator`` methods
+----------------------------------------------------------------------------
+
+First, import the class from ``7-base_geometry``.
+
+	>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
+Now use it:
+
+	>>> bg = BaseGeometry()
+
+Using ``BaseGeometry.integer_validator``:
+-----------------------------------------
+
+Numbers
+-------
+
+	>>> bg.integer_validator("height", 12)
+	>>> bg.integer_validator("width", 89)
+
+Any type apart from integer will raise a TypeError exception:
+
+	>>> bg.integer_validator("name", "four")
+	Traceback (most recent call last):
+	    ...
+	TypeError: name must be an integer
+
+	>>> bg.integer_validator("width", -5.5)
+	Traceback (most recent call last):
+	    ...
+	TypeError: width must be an integer
+
+Signed integers will raise ValueError:
+
+	>>> bg.integer_validator("width", -3)
+	Traceback (most recent call last):
+	    ...
+	ValueError: width must be greater than 0
+
+List won't be validated either:
+
+	>>> bg.integer_validator("widths", [2, 3])
+	Traceback (most recent call last):
+	    ...
+	TypeError: widths must be an integer
+
+
+Two parameters must be passed, passing none will raise an exception:
+
+	>>> bg.integer_validator()
+	Traceback (most recent call last):
+	    ...
+	TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+	>>> bg.integer_validator(None)
+	Traceback (most recent call last):
+	    ...
+	TypeError: integer_validator() missing 1 required positional argument: 'value'
+
+	>>> bg.integer_validator(8)
+	Traceback (most recent call last):
+	    ...
+	TypeError: integer_validator() missing 1 required positional argument: 'value'
+
+	>>> bg.integer_validator("name")
+	Traceback (most recent call last):
+	    ...
+	TypeError: integer_validator() missing 1 required positional argument: 'value'
+
+Area is not yet implemented, an Eception would be raised:
+
+	>>> bg.area()
+	Traceback (most recent call last):
+	    ...
+	Exception: area() is not implemented
