@@ -1,4 +1,4 @@
-#!/usr/bi/python3
+#!/usr/bin/python3
 """
 Module Name: 9-student.py
 Description: This module provides ``Student`` class
