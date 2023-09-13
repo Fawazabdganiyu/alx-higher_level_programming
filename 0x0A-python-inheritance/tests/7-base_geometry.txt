@@ -33,6 +33,11 @@ Any type apart from integer will raise a TypeError exception:
 	    ...
 	TypeError: width must be an integer
 
+	>>> bg.integer_validator("width", 0)
+	Traceback (most recent call last):
+	    ...
+	ValueError: width must be greater than 0
+
 Signed integers will raise ValueError:
 
 	>>> bg.integer_validator("width", -3)
@@ -47,6 +52,25 @@ List won't be validated either:
 	    ...
 	TypeError: widths must be an integer
 
+	>>> bg.integer_validator("age", None)
+	Traceback (most recent call last):
+	    ...
+	TypeError: age must be an integer
+
+	>>> bg.integer_validator("age", True)
+	Traceback (most recent call last):
+	    ...
+	TypeError: age must be an integer
+
+	>>> bg.integer_validator("age", {3, 6})
+	Traceback (most recent call last):
+	     ...
+	TypeError: age must be an integer
+
+	>>> bg.integer_validator("age", (6,))
+	Traceback (most recent call last):
+	    ...
+	TypeError: age must be an integer
 
 Two parameters must be passed, passing none will raise an exception:
 
