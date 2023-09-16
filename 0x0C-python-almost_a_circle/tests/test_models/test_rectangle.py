@@ -145,6 +145,12 @@ class TestRectangleClass(unittest.TestCase):
 
         self.assertEqual(str(message.exception), 'width must be > 0')
 
+    def test_private_width(self):
+        """Test that width is private
+        """
+        with self.assertRaises(AttributeError):
+            self.r.__width
+
     def test_str_height(self):
         """Test that setting height with string raises Type Error"""
         with self.assertRaises(TypeError) as message:
@@ -210,6 +216,12 @@ class TestRectangleClass(unittest.TestCase):
 
         self.assertEqual(str(message.exception), 'height must be > 0')
 
+    def test_private_height(self):
+        """Test that height is private
+        """
+        with self.assertRaises(AttributeError):
+            self.r.__height
+
     def test_str_x(self):
         """Test that setting x with string raises Type Error"""
         with self.assertRaises(TypeError) as message:
@@ -267,6 +279,12 @@ class TestRectangleClass(unittest.TestCase):
 
         self.assertEqual(str(message.exception), 'x must be >= 0')
 
+    def test_private_x(self):
+        """Test that x is private
+        """
+        with self.assertRaises(AttributeError):
+            self.r.__x
+
     def test_str_y(self):
         """Test that setting y with string raises Type Error"""
         with self.assertRaises(TypeError) as message:
@@ -323,3 +341,53 @@ class TestRectangleClass(unittest.TestCase):
             self.r.y = -3
 
         self.assertEqual(str(msg.exception), 'y must be >= 0')
+
+    def test_private_y(self):
+        """Test that __y is private
+        """
+        with self.assertRaises(AttributeError):
+            self.r.__y
+
+    def test_area_value(self):
+        """Test that area returns the correct value
+        """
+        self.r.width = 3
+        self.r.height = 2
+
+        self.assertAlmostEqual(self.r.area(), 6)
+
+        self.r.width = 2
+        self.r.height = 10
+
+        self.assertAlmostEqual(self.r.area(), 20)
+
+    def test_area_value_with_coordinate(self):
+        """Test that the coordinates do not affect the area value
+        """
+        r = Rectangle(8, 7, 3, 4)
+
+        self.assertAlmostEqual(r.area(), 56)
+
+    def test_area_value_with_id(self):
+        """Test that id do not affect area value
+        """
+        r = Rectangle(8, 7, id=12)
+
+        self.assertAlmostEqual(r.area(), 56)
+
+    def test_area_value_with_all(self):
+        """Test that area value is independent of any other parameters
+        aside width and height
+        """
+        r = Rectangle(34, 78, 10, 5, 15)
+
+        self.assertAlmostEqual(r.area(), 2652)
+
+    def test_area_with_argument(self):
+        """Test that area with any argument raises an exception
+        """
+        with self.assertRaises(TypeError):
+            self.r.area(1)
+
+        with self.assertRaises(TypeError):
+            self.r.area(3, 4)
