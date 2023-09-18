@@ -122,3 +122,37 @@ class Rectangle(Base):
         for h in range(self.height):
             print(' ' * self.x, end='')
             print('#' * self.width)
+
+    def update(self, *args):
+        """Update the attributes of the object based on a variable
+        number of arguments.
+
+        This method allows updating one or more attributes
+        of the object in a flexible way.
+
+        Args:
+            *args (int): Variable number of arguments.
+                   1st argument (if provided) should be the id attribute
+                   2nd argument (if provided) should be the width attribute
+                   3rd argument (if provided) should be the height attribute
+                   4th argument (if provided) should be the x attribute
+                   5th argument (if provided) should be the y attribute
+
+        Returns:
+            None
+
+        Example:
+            # Create a rectangle instance
+            r = Rectangle(10, 10, 10, 10, 20)
+
+            # Update the parameters
+            r.update(id=7, width=3, height=2, x=3, y=5)
+
+        Note:
+            Any attribute can be updated and all attributes may not be updated
+            at once
+
+        """
+        arg_name = ['id', 'width', 'height', 'x', 'y']
+        for i, arg in enumerate(args):
+            setattr(self, arg_name[i], arg)
