@@ -7,7 +7,8 @@ Author: Fawaz Abdganiyu <fawazabdganiyu@gmail.com>
 import unittest
 from models.rectangle import Rectangle
 from models.base import Base
-
+from io import StringIO
+import sys
 
 class TestRectangleClass(unittest.TestCase):
     """Test cases for Rectagle class.
@@ -391,3 +392,53 @@ class TestRectangleClass(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             self.r.area(3, 4)
+
+    @staticmethod
+    def capture_stdout(obj):
+        """captures the stdout for testing
+
+        Args:
+            obj (obj): The instance to test for display method
+
+        Return (obj): The captured stdout
+
+        """
+        # Redirect the standard output to capture printed instance
+        stdout = StringIO()
+        sys.stdout = stdout
+
+        obj.display()
+
+        # Restore the standard output
+        sys.stdout = sys.__stdout__
+
+        return stdout
+
+    def test_display_method(self):
+        """Test that the character # is printed to stdout as the Rectangle
+        instance.
+        """
+        r = Rectangle(4, 6)
+        r2 = Rectangle(2, 2)
+
+        expected = '####\n####\n####\n####\n####\n####\n'
+        stdout = TestRectangleClass.capture_stdout(r)
+        captured = stdout.getvalue()
+        self.assertEqual(expected, captured)
+
+        expected = '##\n##\n'
+        stdout = TestRectangleClass.capture_stdout(r2)
+        captured = stdout.getvalue()
+        self.assertEqual(expected, captured)
+
+    def test_display_one_argument(self):
+        """Test that passing argument in display raises exception
+        """
+        with self.assertRaises(TypeError):
+            self.r.display(4)
+
+    def test_display_with_two_parameter(self):
+        """Test that TypeError is raised with two argument.
+        """
+        with self.assertRaises(TypeError):
+            self.r.display(2, 6)
