@@ -123,7 +123,7 @@ class Rectangle(Base):
             print(' ' * self.x, end='')
             print('#' * self.width)
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         """Update the attributes of the object based on a variable
         number of arguments.
 
@@ -146,6 +146,8 @@ class Rectangle(Base):
             r = Rectangle(10, 10, 10, 10, 20)
 
             # Update the parameters
+            r.update(12, 3, 6, 5, 2)
+
             r.update(id=7, width=3, height=2, x=3, y=5)
 
         Note:
@@ -153,6 +155,12 @@ class Rectangle(Base):
             at once
 
         """
-        arg_name = ['id', 'width', 'height', 'x', 'y']
-        for i, arg in enumerate(args):
-            setattr(self, arg_name[i], arg)
+        if args:
+            arg_name = ['id', 'width', 'height', 'x', 'y']
+            for i, arg in enumerate(args):
+                if i < len(arg_name):
+                    setattr(self, arg_name[i], arg)
+        elif kwargs:
+            for k, v in kwargs.items():
+                if hasattr(self, k):
+                    setattr(self, k, v)

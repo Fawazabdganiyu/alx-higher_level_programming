@@ -444,6 +444,14 @@ class TestRectangleClass(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.r.display(2, 6)
 
+    def test_display_with_zero_width_height(self):
+        """Test that value error is raised with width = height = 0 for display.
+        """
+        with self.assertRaises(ValueError) as msg:
+            r = Rectangle(0, 0)
+
+        self.assertEqual(str(msg.exception), 'width must be > 0')
+
     def test_display_x(self):
         """Test x coordinate with display.
         """
@@ -928,7 +936,443 @@ class TestRectangleClass(unittest.TestCase):
 
         self.assertEqual(str(r), f'[Rectangle] (25) 9/7 - 15/6')
 
+    def test_update_over_arg(self):
+        """Test that index error is prevented when there are more that specified
+        instance attribute for update.
+        """
+        self.r.update(10, 6, 4, 2, 1, 3)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (10) 2/1 - 6/4')
+
+    def test_update_None(self):
+        """Test that id is None when passed as update
+        """
+        r = Rectangle(10, 2, id=3)
+        r.update(None)
+
+        self.assertEqual(str(r), f'[Rectangle] (None) 0/0 - 10/2')
+
     def test_update_by_keyword(self):
-        """Test that parameter cannot be specified for update"""
-        with self.assertRaises(TypeError):
-            self.r.update(id=12, width=3, height=8, x=2, y=3)
+        """Test that parameters are updated by specified keyword"""
+        self.r.update(id=12, width=3, height=8, x=2, y=3)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (12) 2/3 - 3/8')
+
+    def test_update_valid_id_by_keyword(self):
+        """Test that id is updated by keyword
+        """
+        self.r.update(id=8)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (8) 0/0 - 10/2')
+
+    def test_update_id_str_by_keyword(self):
+        """Test id update with string
+        """
+        self.r.update(id='four')
+
+        self.assertEqual(str(self.r), f'[Rectangle] (four) 0/0 - 10/2')
+
+    def test_update_id_negative_by_keyword(self):
+        """Test id update with value < 0
+        """
+        self.r.update(id=-5)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (-5) 0/0 - 10/2')
+
+    def test_update_id_float_by_keyword(self):
+        """Test id update with float
+        """
+        self.r.update(id=6.6)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (6.6) 0/0 - 10/2')
+
+        self.r.update(id=-6.6)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (-6.6) 0/0 - 10/2')
+
+    def test_update_id_tuple_by_keyword(self):
+        """Test id update with a tuple"""
+        self.r.update(id=(3, 4, 'five'))
+
+        id = (3, 4, 'five')
+
+        self.assertEqual(str(self.r), f'[Rectangle] ({id}) 0/0 - 10/2')
+
+    def test_update_id_dict_by_keyword(self):
+        """Test id update with a dictionary
+        """
+        self.r.update(id={'name': 2, 'id': 78})
+
+        id = {'name': 2, 'id': 78}
+        self.assertEqual(str(self.r), (f"[Rectangle] ({id}) 0/0 - 10/2"))
+
+    def test_update_id_None_by_keyword(self):
+        """Test id update with a None"""
+        self.r.update(id=None)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (None) 0/0 - 10/2')
+
+    def test_update_width_valid_by_keyword(self):
+        """Test that a valid width is updated properly"""
+        self.r.update(id= 89, width=12)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 0/0 - 12/2')
+
+    def test_update_width_None_by_keyword(self):
+        """Test that an exception is raised when width is updated to None
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=None)
+
+        self.assertEqual(str(msg.exception), 'width must be an integer')
+
+    def test_update_width_str_by_keyword(self):
+        """Test that an exception is raised when width is updated with string
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width="four")
+
+        self.assertEqual(str(msg.exception), 'width must be an integer')
+
+    def test_update_width_float_by_keyword(self):
+        """Test that an exception is raised when width is updated with
+        a float
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=-9.8)
+
+        self.assertEqual(str(msg.exception), 'width must be an integer')
+
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=9.8)
+
+        self.assertEqual(str(msg.exception), 'width must be an integer')
+
+    def test_update_width_dict_by_keyword(self):
+        """Test that an exception is raised when width is updated with
+        a dictionary
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width={"width": 23})
+
+        self.assertEqual(str(msg.exception), 'width must be an integer')
+
+    def test_update_width_tuple_by_keyword(self):
+        """Test that an exception is raised when width is updated with
+        a tuple
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=("width", 23))
+
+        self.assertEqual(str(msg.exception), 'width must be an integer')
+
+    def test_update_width_list_by_keyword(self):
+        """Test that an exception is raised when width is updated with
+        a list
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=["width", 23])
+
+        self.assertEqual(str(msg.exception), 'width must be an integer')
+
+    def test_update_width_negative_by_keyword(self):
+        """Test that an exception is raised when width is updated with
+        a value < 0
+        """
+        with self.assertRaises(ValueError) as msg:
+            self.r.update(id=89, width=-6)
+
+        self.assertEqual(str(msg.exception), 'width must be > 0')
+
+    def test_update_width_zero_by_keyword(self):
+        """Test that an exception is raised when width is updated with
+        """
+        with self.assertRaises(ValueError) as msg:
+            self.r.update(id=89, width=0)
+
+        self.assertEqual(str(msg.exception), 'width must be > 0')
+
+    def test_update_id_width_height_valid_by_keyword(self):
+        """Test that a valid height is updated properly"""
+        self.r.update(id=89, width=12,height= 6)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 0/0 - 12/6')
+
+    def test_update_id_width_height_None_by_keyword(self):
+        """Test that an exception is raised when height is updated to None
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=None)
+
+        self.assertEqual(str(msg.exception), 'height must be an integer')
+
+    def test_update_id_width_height_str_by_keyword(self):
+        """Test that an exception is raised when height is updated with string
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height="four")
+
+        self.assertEqual(str(msg.exception), 'height must be an integer')
+
+    def test_update_id_width_height_float_by_keyword(self):
+        """Test that an exception is raised when height is updated with
+        a float
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=-9.8)
+
+        self.assertEqual(str(msg.exception), 'height must be an integer')
+
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=9.8)
+
+        self.assertEqual(str(msg.exception), 'height must be an integer')
+
+    def test_update_id_width_height_dict_by_keyword(self):
+        """Test that an exception is raised when height is updated with
+        a dictionary
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height={"height": 23})
+
+        self.assertEqual(str(msg.exception), 'height must be an integer')
+
+    def test_update_id_width_height_tuple_by_keyword(self):
+        """Test that an exception is raised when height is updated with
+        a tuple
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=("height", 23))
+
+        self.assertEqual(str(msg.exception), 'height must be an integer')
+
+    def test_update_id_width_height_list_by_keyword(self):
+        """Test that an exception is raised when height is updated with
+        a list
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=["height", 23])
+
+        self.assertEqual(str(msg.exception), 'height must be an integer')
+
+    def test_update_id_width_height_negative_by_keyword(self):
+        """Test that an exception is raised when height is updated with
+        a value < 0
+        """
+        with self.assertRaises(ValueError) as msg:
+            self.r.update(id=89, width=12, height=-6)
+
+        self.assertEqual(str(msg.exception), 'height must be > 0')
+
+    def test_update_id_width_height_zero_by_keyword(self):
+        """Test that an exception is raised when height is updated with
+        """
+        with self.assertRaises(ValueError) as msg:
+            self.r.update(id=89, width=12, height=0)
+
+        self.assertEqual(str(msg.exception), 'height must be > 0')
+
+    def test_update_id_width_height_x_y_valid_by_keyword(self):
+        """Test that a valid y is updated properly"""
+        self.r.update(id=89, width=12, height=6, x=3, y=2)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 3/2 - 12/6')
+
+    def test_update_id_width_height_x_y_None_by_keyword(self):
+        """Test that an exception is raised when y is updated to None
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=3, y=None)
+
+        self.assertEqual(str(msg.exception), 'y must be an integer')
+
+    def test_update_id_width_height_x_y_str_by_keyword(self):
+        """Test that an exception is raised when y is updated with string
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=3, y="four")
+
+        self.assertEqual(str(msg.exception), 'y must be an integer')
+
+    def test_update_id_width_height_x_y_float_by_keyword(self):
+        """Test that an exception is raised when y is updated with
+        a float
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=3, y=-9.8)
+
+        self.assertEqual(str(msg.exception), 'y must be an integer')
+
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=3, y=9.8)
+
+        self.assertEqual(str(msg.exception), 'y must be an integer')
+
+    def test_update_id_width_height_x_y_dict_by_keyword(self):
+        """Test that an exception is raised when y is updated with
+        a dictionary
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=3, y={"y": 23})
+
+        self.assertEqual(str(msg.exception), 'y must be an integer')
+
+    def test_update_id_width_height_x_y_tuple_by_keyword(self):
+        """Test that an exception is raised when y is updated with
+        a tuple
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=3, y=("y", 23))
+
+        self.assertEqual(str(msg.exception), 'y must be an integer')
+
+    def test_update_id_width_height_x_y_list_by_keyword(self):
+        """Test that an exception is raised when y is updated with
+        a list
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=3, y=["y", 23])
+
+        self.assertEqual(str(msg.exception), 'y must be an integer')
+
+    def test_update_id_width_height_x_y_negative_by_keyword(self):
+        """Test that an exception is raised when y is updated with
+        a value < 0
+        """
+        with self.assertRaises(ValueError) as msg:
+            self.r.update(id=89, width=12, height=6, x=3, y=-6)
+
+        self.assertEqual(str(msg.exception), 'y must be >= 0')
+
+    def test_update_id_width_height_x_y_zero_by_keyword(self):
+        """Test that y is updated properly
+        """
+        self.r.update(id=89, width=12, height=6, x=3, y=0)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 3/0 - 12/6')
+
+    def test_update_id_width_height_x_valid_by_keyword(self):
+        """Test that a valid y is updated properly"""
+        self.r.update(id=89, width=12, height=6, x=3)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 3/0 - 12/6')
+
+    def test_update_id_width_height_x_None_by_keyword(self):
+        """Test that an exception is raised when x is updated to None
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=None)
+
+        self.assertEqual(str(msg.exception), 'x must be an integer')
+
+    def test_update_id_width_height_x_str_by_keyword(self):
+        """Test that an exception is raised when x is updated with string
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x="four")
+
+        self.assertEqual(str(msg.exception), 'x must be an integer')
+
+    def test_update_id_width_height_x_float_by_keyword(self):
+        """Test that an exception is raised when x is updated with
+        a float
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=-9.8)
+
+        self.assertEqual(str(msg.exception), 'x must be an integer')
+
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=9.8)
+
+        self.assertEqual(str(msg.exception), 'x must be an integer')
+
+    def test_update_id_width_height_x_dict_by_keyword(self):
+        """Test that an exception is raised when x is updated with
+        a dictionary
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x={"x": 23})
+
+        self.assertEqual(str(msg.exception), 'x must be an integer')
+
+    def test_update_id_width_height_x_tuple_by_keyword(self):
+        """Test that an exception is raised when x is updated with
+        a tuple
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=("x", 23))
+
+        self.assertEqual(str(msg.exception), 'x must be an integer')
+
+    def test_update_id_width_height_x_list_by_keyword(self):
+        """Test that an exception is raised when x is updated with
+        a list
+        """
+        with self.assertRaises(TypeError) as msg:
+            self.r.update(id=89, width=12, height=6, x=["x", 23])
+
+        self.assertEqual(str(msg.exception), 'x must be an integer')
+
+    def test_update_id_width_height_x_negative_by_keyword(self):
+        """Test that an exception is raised when x is updated with
+        a value < 0
+        """
+        with self.assertRaises(ValueError) as msg:
+            self.r.update(id=89, width=12, height=6, x=-6)
+
+        self.assertEqual(str(msg.exception), 'x must be >= 0')
+
+    def test_update_id_width_height_x_zero_by_keyword(self):
+        """Test that x is updated properly
+        """
+        self.r.update(id=89, width=12, height=6, x=0)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 0/0 - 12/6')
+
+    def test_update_by_keyword_combination(self):
+        """Test update with keyword by random key value update
+        """
+        self.r.update(height=1)
+        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 0/0 - 10/1')
+
+        self.r.update(width=1, x=2)
+        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 2/0 - 1/1')
+
+        self.r.update(y=1, width=2, x=3, id=89)
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 3/1 - 2/1')
+
+        self.r.update(x=1, height=2, y=3, width=4)
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 1/3 - 4/2')
+
+    def test_invalid_keyword_mixture(self):
+        """Test that invalud keyword not not affect the seeting of attributes
+        """
+        self.r.update(h=1)
+        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 0/0 - 10/2')
+
+        self.r.update(width=1, x=2, w=34)
+        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 2/0 - 1/2')
+
+        self.r.update(y=1, i= 2, width=2, x=3, id=89)
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 3/1 - 2/2')
+
+        self.r.update(a=3, x=1, height=2, y=3, width=4, z=5)
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 1/3 - 4/2')
+
+    def test_arg_kwarg_mixture(self):
+        """Test that only the first encountered args are updated
+        for a mixture of arg and kwargs
+        """
+        self.r.update(12, 2, 3, x=2, y=9)
+
+        self.assertEqual(str(self.r), f'[Rectangle] (12) 2/9 - 2/3')
+
+    def test_arg_kwargs_mingling(self):
+        """Test that a syntax Error is raised when the args are mingled
+        """
+        with self.assertRaises(SyntaxError):
+            self.r.update(12, 2, height=3, 2, y=9)
+
+        with self.assertRaises(SyntaxError):
+            self.r.update(12, 2, height=3, 2, 9)
