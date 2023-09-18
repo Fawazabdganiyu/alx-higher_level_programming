@@ -442,3 +442,51 @@ class TestRectangleClass(unittest.TestCase):
         """
         with self.assertRaises(TypeError):
             self.r.display(2, 6)
+
+    def test_str_width_height(self):
+        """Test that the string is represented well with only
+        default value
+        """
+        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 0/0 - 10/2')
+
+    def test_str_all(self):
+        """Test that all parameters are have correct string representation
+        """
+        r = Rectangle(4, 6, 2, 1, 12)
+
+        self.assertEqual(str(r), f'[Rectangle] (12) 2/1 - 4/6')
+
+    def test_str_x(self):
+        """Test that only x is represented with instance.
+        """
+        self.r.x = 4
+
+        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 4/0 - 10/2')
+
+    def test_str_y(self):
+        """Test that only y is represented with the instance.
+        """
+        self.r.y = 4
+
+        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 0/4 - 10/2')
+
+    def test_str_id(self):
+        """Test that only id s represented well with the instance.
+        """
+        self.r.id = 89
+
+        self.assertEqual(str(self.r), f'[Rectangle] (89) 0/0 - 10/2')
+
+    def test_str_x_y(self):
+        """Test that x and y are represented with  the instance well.
+        """
+        r = Rectangle(10, 2, 7, 6)
+
+        self.assertEqual(str(r), f'[Rectangle] ({r.id}) 7/6 - 10/2')
+
+    def test_str_x_y_id(self):
+        """Test the string representation with defined specific parameters
+        """
+        r = Rectangle(23, 4, 4, 10, 98)
+
+        self.assertEqual(str(r), f'[Rectangle] (98) 4/10 - 23/4')
