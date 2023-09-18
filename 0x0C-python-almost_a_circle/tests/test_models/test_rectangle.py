@@ -443,6 +443,50 @@ class TestRectangleClass(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.r.display(2, 6)
 
+    def test_display_x(self):
+        """Test x coordinate with display.
+        """
+        r = Rectangle(2, 3, x=3)
+
+        expected = '   ##\n   ##\n   ##\n'
+        stdout = TestRectangleClass.capture_stdout(r)
+        captured = stdout.getvalue()
+
+        self.assertEqual(expected, captured)
+
+    def test_display_y(self):
+        """Test y coordinate with display.
+        """
+        r = Rectangle(2, 3, y=3)
+
+        expected = '\n\n\n##\n##\n##\n'
+        stdout = TestRectangleClass.capture_stdout(r)
+        captured = stdout.getvalue()
+
+        self.assertEqual(expected, captured)
+
+    def test_display_x_y(self):
+        """Test that both x and y works as expected with display.
+        """
+        r = Rectangle(2, 3, 2, 2)
+
+        expected = '\n\n  ##\n  ##\n  ##\n'
+        stdout = TestRectangleClass.capture_stdout(r)
+        captured = stdout.getvalue()
+
+        self.assertEqual(expected, captured)
+
+    def test_dispaly_x_y_id(self):
+        """Test all parameter with display method
+        """
+        r = Rectangle(2, 3, 2, 2, 45)
+
+        expected = '\n\n  ##\n  ##\n  ##\n'
+        stdout = TestRectangleClass.capture_stdout(r)
+        captured = stdout.getvalue()
+
+        self.assertEqual(expected, captured)
+
     def test_str_width_height(self):
         """Test that the string is represented well with only
         default value

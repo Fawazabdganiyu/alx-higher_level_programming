@@ -118,5 +118,7 @@ class Rectangle(Base):
         """prints in stdout the Rectangle instance with the character #
         x and y is yet to be handled
         """
+        print('\n' * self.y, end='')
         for h in range(self.height):
+            print(' ' * self.x, end='')
             print('#' * self.width)
