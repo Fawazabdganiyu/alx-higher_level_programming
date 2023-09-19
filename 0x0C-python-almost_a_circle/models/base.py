@@ -6,6 +6,7 @@ Author: Fawaz Abdganiyu <fawazabdganiyu@gmail.com>
 
 """
 import json
+import csv
 
 
 class Base:
@@ -108,5 +109,44 @@ class Base:
             with open(filename, mode='r', encoding='utf-8') as f:
                 list_dict = Base.from_json_string(f.read())
                 return [cls.create(**inst_dict) for inst_dict in list_dict]
+        except FileNotFoundError:
+            return []
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """serializes in CSV
+
+        Args:
+            list_objs (list): The list of objects to serialize
+
+        """
+        if list_objs is None:
+            return
+
+        filename = f'{cls.__name__}.csv'
+        with open(filename, mode='w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+
+            if cls.__name__ == 'Rectangle':
+                attr_header = ['id', 'width', 'height', 'x', 'y']
+            elif cls.__name__ == 'Square':
+                attr_header = ['id', 'size', 'x', 'y']
+
+            writer.writerow(attr_header)
+
+            if list_objs and len(list_objs) != 0:
+                for obj in list_objs:
+                    row = [getattr(obj, attr) for attr in attr_header]
+                    writer.writerow(row)
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """derializes in CSV
+
+        """
+        filename = f'{cls.__name__}.csv'
+        try:
+            with open(filename, mode='r', newline='', encoding='utf-8') as f:
+                reader = csv.reader(f)
         except FileNotFoundError:
             return []
