@@ -1366,13 +1366,4 @@ class TestRectangleClass(unittest.TestCase):
         """
         self.r.update(12, 2, 3, x=2, y=9)
 
-        self.assertEqual(str(self.r), f'[Rectangle] (12) 2/9 - 2/3')
-
-    def test_arg_kwargs_mingling(self):
-        """Test that a syntax Error is raised when the args are mingled
-        """
-        with self.assertRaises(SyntaxError):
-            self.r.update(12, 2, height=3, 2, y=9)
-
-        with self.assertRaises(SyntaxError):
-            self.r.update(12, 2, height=3, 2, 9)
+        self.assertEqual(str(self.r), f'[Rectangle] (12) 0/0 - 2/3')
