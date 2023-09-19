@@ -25,7 +25,7 @@ class TestRectangleClass(unittest.TestCase):
     def test_contructor(self):
         """Test that the instances are initiated propery.
         """
-        r1 = self.r
+        r1 = Rectangle(10, 2)
         r2 = Rectangle(2, 10)
         r3 = Rectangle(2, 5, 3, 2)
         r4 = Rectangle(10, 2, 0, 0, 12)
@@ -45,32 +45,40 @@ class TestRectangleClass(unittest.TestCase):
 
     def test_default_values(self):
         """Test that the optional parameters are working"""
-        self.assertIsNotNone(self.r.id)
-        self.assertEqual(self.r.x, 0)
-        self.assertEqual(self.r.y, 0)
+        r = Rectangle(10, 2)
+
+        self.assertIsNotNone(r.id)
+        self.assertEqual(r.x, 0)
+        self.assertEqual(r.y, 0)
 
     def test_width_height_setter_getter(self):
         """Test that the width is set properly
         """
-        self.r.width = 3
-        self.r.height = 15
+        r = Rectangle(10, 2)
 
-        self.assertEqual(self.r.width, 3)
-        self.assertEqual(self.r.height, 15)
+        r.width = 3
+        r.height = 15
+
+        self.assertEqual(r.width, 3)
+        self.assertEqual(r.height, 15)
 
     def test_directions_setter_getter(self):
         """Test that the x and y are set properly.
         """
-        self.r.x = 2
-        self.r.y = 3
+        r = Rectangle(10, 2)
 
-        self.assertEqual(self.r.x, 2)
-        self.assertEqual(self.r.y, 3)
+        r.x = 2
+        r.y = 3
+
+        self.assertEqual(r.x, 2)
+        self.assertEqual(r.y, 3)
 
     def test_isinstance(self):
         """Test if r is an instance of Base and Rectangle"""
-        self.assertIsInstance(self.r, Base)
-        self.assertIsInstance(self.r, Rectangle)
+        r = Rectangle(10, 2)
+
+        self.assertIsInstance(r, Base)
+        self.assertIsInstance(r, Rectangle)
 
     def test_no_argumemt(self):
         """Test that exception would be raised if no argument is passed"""
@@ -92,26 +100,27 @@ class TestRectangleClass(unittest.TestCase):
     def test_None_width(self):
         """Test that exception is raised with None"""
         with self.assertRaises(TypeError) as message:
-            self.r.width = None
+            Rectangle(None, 2)
 
     def test_dict_width(self):
         """Test that exception is raises when width = dict"""
         with self.assertRaises(TypeError) as message:
-            self.r.width = {'one': 1, 'two': 2}
+            width = {'one': 1, 'two': 2}
+            Rectangle(width, 2)
 
         self.assertEqual(str(message.exception), 'width must be an integer')
 
     def test_set_width(self):
         """Test that set is not validated for width"""
         with self.assertRaises(TypeError) as message:
-            self.r.width = {1, 2, 3}
+            Rectangle({1, 2, 3}, 2)
 
         self.assertEqual(str(message.exception), 'width must be an integer')
 
     def test_float_width(self):
         """Test that float is not validated for width"""
         with self.assertRaises(TypeError) as message:
-            self.r.width = 5.5
+            Rectangle(5.5, 2)
 
         self.assertEqual(str(message.exception), 'width must be an integer')
 
@@ -119,7 +128,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that list will also raise an exception
         """
         with self.assertRaises(TypeError) as message:
-            self.r.width = [1, 4]
+            Rectangle([1, 4], 2)
 
         self.assertEqual(str(message.exception), 'width must be an integer')
 
@@ -127,7 +136,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that tuple also raises a Type Error
         """
         with self.assertRaises(TypeError) as msg:
-            self.r.width = ("one", 2)
+            Rectangle(("one", 2), 2)
 
         self.assertEqual(str(msg.exception), 'width must be an integer')
 
@@ -135,7 +144,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that Value Error is raised if width < 0
         """
         with self.assertRaises(ValueError) as message:
-            self.r.width = -6
+            Rectangle(-6, 2)
 
         self.assertEqual(str(message.exception), 'width must be > 0')
 
@@ -143,7 +152,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that Value Error is raised if width = 0
         """
         with self.assertRaises(ValueError) as message:
-            self.r.width = 0
+            Rectangle(0, 2)
 
         self.assertEqual(str(message.exception), 'width must be > 0')
 
@@ -151,44 +160,44 @@ class TestRectangleClass(unittest.TestCase):
         """Test that width is private
         """
         with self.assertRaises(AttributeError):
-            self.r.__width
+            Rectangle(10, 2).__width
 
     def test_private_height(self):
         """Test that height is private
         """
         with self.assertRaises(AttributeError):
-            self.r.__height
+            Rectangle(10, 2).__height
 
     def test_str_height(self):
         """Test that setting height with string raises Type Error"""
         with self.assertRaises(TypeError) as message:
-            self.r.height = "3"
+            Rectangle(10, "3")
 
         self.assertEqual(str(message.exception), 'height must be an integer')
 
     def test_None_height(self):
         """Test that exception is raised with None"""
         with self.assertRaises(TypeError) as message:
-            self.r.height = None
+            Rectangle(10, None)
 
     def test_dict_height(self):
         """Test that exception is raises when height = dict"""
         with self.assertRaises(TypeError) as message:
-            self.r.height = {'one': 1, 'two': 2}
+            Rectangle(3, {'one': 1, 'two': 2})
 
         self.assertEqual(str(message.exception), 'height must be an integer')
 
     def test_set_height(self):
         """Test that set is not validated for height"""
         with self.assertRaises(TypeError) as message:
-            self.r.height = {1, 2, 3}
+            Rectangle(12, {1, 2, 3})
 
         self.assertEqual(str(message.exception), 'height must be an integer')
 
     def test_float_height(self):
         """Test that float is not validated for height"""
         with self.assertRaises(TypeError) as message:
-            self.r.height = 5.5
+            Rectangle(23, 5.5)
 
         self.assertEqual(str(message.exception), 'height must be an integer')
 
@@ -196,7 +205,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that list will also raise an exception
         """
         with self.assertRaises(TypeError) as message:
-            self.r.height = [1, 4]
+            Rectangle(23, [1, 4])
 
         self.assertEqual(str(message.exception), 'height must be an integer')
 
@@ -204,7 +213,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that tuple also raises a Type Error
         """
         with self.assertRaises(TypeError) as msg:
-            self.r.height = ("one", 2)
+            Rectangle(12, ("one", 2))
 
         self.assertEqual(str(msg.exception), 'height must be an integer')
 
@@ -212,7 +221,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that Value Error is raised if height < 0
         """
         with self.assertRaises(ValueError) as message:
-            self.r.height = -6
+            Rectangle(12, -6)
 
         self.assertEqual(str(message.exception), 'height must be > 0')
 
@@ -220,7 +229,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that Value Error is raised if width = 0
         """
         with self.assertRaises(ValueError) as message:
-            self.r.height = 0
+            Rectangle(3, 0)
 
         self.assertEqual(str(message.exception), 'height must be > 0')
 
@@ -228,38 +237,38 @@ class TestRectangleClass(unittest.TestCase):
         """Test that height is private
         """
         with self.assertRaises(AttributeError):
-            self.r.__height
+            Rectangle(2, 3).__height
 
     def test_str_x(self):
         """Test that setting x with string raises Type Error"""
         with self.assertRaises(TypeError) as message:
-            self.r.x = "2"
+            Rectangle(2, 3, "2")
 
         self.assertEqual(str(message.exception), 'x must be an integer')
 
     def test_None_x(self):
         """Test that exception is raised with None"""
         with self.assertRaises(TypeError) as message:
-            self.r.x = None
+            Rectangle(2, 3, None)
 
     def test_dict_x(self):
         """Test that exception is raises when x = dict"""
         with self.assertRaises(TypeError) as message:
-            self.r.x = {'one': 1, 'two': 2}
+            Rectangle(2, 3, {'one': 1, 'two': 2})
 
         self.assertEqual(str(message.exception), 'x must be an integer')
 
     def test_set_x(self):
         """Test that set is not validated for x"""
         with self.assertRaises(TypeError) as message:
-            self.r.x = {1, 2, 3}
+            Rectangle(2, 3, {1, 2, 3})
 
         self.assertEqual(str(message.exception), 'x must be an integer')
 
     def test_float_x(self):
         """Test that float is not validated for x"""
         with self.assertRaises(TypeError) as message:
-            self.r.x = 5.5
+            Rectangle(2, 3, 5.5)
 
         self.assertEqual(str(message.exception), 'x must be an integer')
 
@@ -267,7 +276,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that list will also raise an exception
         """
         with self.assertRaises(TypeError) as message:
-            self.r.x = [1, 4]
+            Rectangle(2, 3, [1, 4])
 
         self.assertEqual(str(message.exception), 'x must be an integer')
 
@@ -275,7 +284,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that tuple also raises a Type Error
         """
         with self.assertRaises(TypeError) as msg:
-            self.r.x = ("one", 2)
+            Rectangle(2, 3, ("one", 2))
 
         self.assertEqual(str(msg.exception), 'x must be an integer')
 
@@ -283,7 +292,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that Value Error is raised when x < 0
         """
         with self.assertRaises(ValueError) as message:
-            self.r.x = -3
+            Rectangle(2, 3, -3)
 
         self.assertEqual(str(message.exception), 'x must be >= 0')
 
@@ -291,38 +300,38 @@ class TestRectangleClass(unittest.TestCase):
         """Test that x is private
         """
         with self.assertRaises(AttributeError):
-            self.r.__x
+            Rectangle(2, 3).__x
 
     def test_str_y(self):
         """Test that setting y with string raises Type Error"""
         with self.assertRaises(TypeError) as message:
-            self.r.y = "3"
+            Rectangle(2, 3, 2, "3")
 
         self.assertEqual(str(message.exception), 'y must be an integer')
 
     def test_None_y(self):
         """Test that exception is raised with None"""
         with self.assertRaises(TypeError) as message:
-            self.r.y = None
+            Rectangle(2, 3, 2, None)
 
     def test_dict_y(self):
         """Test that exception is raises when y = dict"""
         with self.assertRaises(TypeError) as message:
-            self.r.y = {'one': 1, 'two': 2}
+            Rectangle(2, 3, 2, {'one': 1, 'two': 2})
 
         self.assertEqual(str(message.exception), 'y must be an integer')
 
     def test_set_y(self):
         """Test that set is not validated for y"""
         with self.assertRaises(TypeError) as message:
-            self.r.y = {1, 2, 3}
+            Rectangle(2, 3, 2, {1, 2, 3})
 
         self.assertEqual(str(message.exception), 'y must be an integer')
 
     def test_float_y(self):
         """Test that float is not validated for y"""
         with self.assertRaises(TypeError) as message:
-            self.r.y = 5.5
+            Rectangle(2, 3, 2, 5.5)
 
         self.assertEqual(str(message.exception), 'y must be an integer')
 
@@ -330,7 +339,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that list will also raise an exception
         """
         with self.assertRaises(TypeError) as message:
-            self.r.y = [1, 4]
+            Rectangle(2, 3, 2, [1, 4])
 
         self.assertEqual(str(message.exception), 'y must be an integer')
 
@@ -338,7 +347,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that tuple also raises a Type Error
         """
         with self.assertRaises(TypeError) as msg:
-            self.r.y = ("one", 2)
+            Rectangle(2, 3, 2, ("one", 2))
 
         self.assertEqual(str(msg.exception), 'y must be an integer')
 
@@ -346,7 +355,7 @@ class TestRectangleClass(unittest.TestCase):
         """Test that Value Error is raised when y < 0
         """
         with self.assertRaises(ValueError) as msg:
-            self.r.y = -3
+            Rectangle(2, 3, 2, -3)
 
         self.assertEqual(str(msg.exception), 'y must be >= 0')
 
@@ -354,20 +363,17 @@ class TestRectangleClass(unittest.TestCase):
         """Test that __y is private
         """
         with self.assertRaises(AttributeError):
-            self.r.__y
+            Rectangle(2, 3, 2, 4).__y
 
     def test_area_value(self):
         """Test that area returns the correct value
         """
-        self.r.width = 3
-        self.r.height = 2
+        r = Rectangle(2, 3)
 
-        self.assertAlmostEqual(self.r.area(), 6)
+        self.assertAlmostEqual(r.area(), 6)
 
-        self.r.width = 2
-        self.r.height = 10
-
-        self.assertAlmostEqual(self.r.area(), 20)
+        r = Rectangle(2, 10)
+        self.assertAlmostEqual(r.area(), 20)
 
     def test_area_value_with_coordinate(self):
         """Test that the coordinates do not affect the area value
@@ -395,10 +401,10 @@ class TestRectangleClass(unittest.TestCase):
         """Test that area with any argument raises an exception
         """
         with self.assertRaises(TypeError):
-            self.r.area(1)
+            Rectangle(2, 3, 2).area(1)
 
         with self.assertRaises(TypeError):
-            self.r.area(3, 4)
+            Rectangle(2, 3, 2).area(3, 4)
 
     @staticmethod
     def capture_stdout(obj):
@@ -442,13 +448,13 @@ class TestRectangleClass(unittest.TestCase):
         """Test that passing argument in display raises exception
         """
         with self.assertRaises(TypeError):
-            self.r.display(4)
+            Rectangle(2, 3, 2).display(4)
 
     def test_display_with_two_parameter(self):
         """Test that TypeError is raised with two argument.
         """
         with self.assertRaises(TypeError):
-            self.r.display(2, 6)
+            Rectangle(2, 3, 2).display(2, 6)
 
     def test_display_with_zero_width_height(self):
         """Test that value error is raised with width = height = 0 for display.
@@ -506,7 +512,9 @@ class TestRectangleClass(unittest.TestCase):
         """Test that the string is represented well with only
         default value
         """
-        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 0/0 - 10/2')
+        r = Rectangle(10, 2)
+
+        self.assertEqual(str(r), f'[Rectangle] ({r.id}) 0/0 - 10/2')
 
     def test_str_all(self):
         """Test that all parameters are have correct string representation
@@ -518,23 +526,23 @@ class TestRectangleClass(unittest.TestCase):
     def test_str_x(self):
         """Test that only x is represented with instance.
         """
-        self.r.x = 4
+        r = Rectangle(10, 2, 4)
 
-        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 4/0 - 10/2')
+        self.assertEqual(str(r), f'[Rectangle] ({r.id}) 4/0 - 10/2')
 
     def test_str_y(self):
         """Test that only y is represented with the instance.
         """
-        self.r.y = 4
+        r = Rectangle(10, 2, y=4)
 
-        self.assertEqual(str(self.r), f'[Rectangle] ({self.r.id}) 0/4 - 10/2')
+        self.assertEqual(str(r), f'[Rectangle] ({r.id}) 0/4 - 10/2')
 
     def test_str_id(self):
         """Test that only id s represented well with the instance.
         """
-        self.r.id = 89
+        r = Rectangle(10, 2, id=89)
 
-        self.assertEqual(str(self.r), f'[Rectangle] (89) 0/0 - 10/2')
+        self.assertEqual(str(r), f'[Rectangle] (89) 0/0 - 10/2')
 
     def test_str_x_y(self):
         """Test that x and y are represented with  the instance well.
