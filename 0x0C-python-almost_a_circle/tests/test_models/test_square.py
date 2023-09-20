@@ -1230,3 +1230,44 @@ class TestSquareClass(unittest.TestCase):
 
         s.update(a=3, x=1, height=2, y=3, size=4, z=5)
         self.assertEqual(str(s), f'[Square] (89) 1/3 - 4')
+
+    def test_size_to_dictionary(self):
+        """Test that the rectangle instance width and height
+        are returned to dictionary
+        """
+        s = Square(2)
+
+        s_dict = s.to_dictionary()
+        expected = {'id': s.id, 'size': 2, 'x': 0, 'y': 0}
+
+        self.assertDictEqual(expected, s_dict)
+
+    def test_all_to_dictionary(self):
+        """Test that all set attributes are returned to dictionary
+        """
+        s = Square(2, 6, 2, 7)
+
+        s_dict = s.to_dictionary()
+        expected = {'id': 7, 'size': 2, 'x': 6, 'y': 2}
+        self.assertDictEqual(expected, s_dict)
+
+    def test_arg_to_dictionary(self):
+        """Test that passing an argument to this method raises an exception
+        """
+        s = Square(2, 6, 2, 7)
+        with self.assertRaises(TypeError):
+            s.to_dictionary(1)
+
+        with self.assertRaises(TypeError):
+            s.to_dictionary(1, 3)
+
+    def test_to_dictionary_return(self):
+        """Test that the dictionary returns are equal even if the keyword are
+        not accordingly
+        """
+        s = Square(2, 6, 2, 7)
+
+        s_dict = s.to_dictionary()
+        expected = {'id': 7, 'x': 6, 'size': 2, 'y': 2}
+
+        self.assertDictEqual(expected, s_dict)

@@ -98,7 +98,7 @@ class TestBase(unittest.TestCase):
         with open('Rectangle.json', mode='r', encoding='utf-8') as f:
             self.assertEqual(f.read(), expected)
 
-    def test_Rectangle_save_to_file_None_empty(self):
+    def test_Rectangle_save_to_file_None(self):
         """Test if an empty list is saved
         """
         Rectangle.save_to_file(None)
@@ -106,6 +106,9 @@ class TestBase(unittest.TestCase):
         with open('Rectangle.json', mode='r', encoding='utf-8') as f:
             self.assertEqual(f.read(), '[]')
 
+    def test_Rectangle_save_to_file_empty(self):
+        """Test if an empty list is saved
+        """
         Rectangle.save_to_file([])
 
         with open('Rectangle.json', mode='r', encoding='utf-8') as f:
@@ -138,9 +141,9 @@ class TestBase(unittest.TestCase):
             self.assertEqual(f.read(), '[]')
 
         Square.save_to_file([])
-
         with open('Square.json', mode='r', encoding='utf-8') as f:
             self.assertEqual(f.read(), '[]')
+            self.assertIsNotNone(f.read())
 
     def test_from_json_string(self):
         """Test that json string is deserialized
