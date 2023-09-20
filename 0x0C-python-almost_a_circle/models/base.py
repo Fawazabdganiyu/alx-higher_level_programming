@@ -164,6 +164,7 @@ class Base:
             list_squares (list): The list of Square instance to draw
 
         """
+        turtle.getscreen()
         t = turtle.Turtle()
         t.pencolor('brown')
 
@@ -185,4 +186,3 @@ class Base:
                 for i in range(4):
                     t.fd(sqr.size)
                     t.rt(90)
-            t.backword(rect.height)
