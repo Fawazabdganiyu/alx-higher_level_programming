@@ -114,34 +114,42 @@ class Base:
 
     @classmethod
     def save_to_file_csv(cls, list_objs):
-        """serializes in CSV
+        """saves an instance attributes to csv file
 
         Args:
-            list_objs (list): The list of objects to serialize
+            list_objs (list): The list of object attributes to save
 
         """
-        if list_objs is None:
-            return
-
         filename = f'{cls.__name__}.csv'
         with open(filename, mode='w', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f)
+            if list_objs is None or list_objs == []:
+                f.write('[]')
+            else:
+                if cls.__name__ == 'Rectangle':
+                    headers = ['id', 'width', 'height', 'x', 'y']
+                elif cls.__name__ == 'Square':
+                    headers = ['id', 'size', 'x', 'y']
 
-            if cls.__name__ == 'Rectangle':
-                attr_header = ['id', 'width', 'height', 'x', 'y']
-            elif cls.__name__ == 'Square':
-                attr_header = ['id', 'size', 'x', 'y']
-
-            writer.writerow(attr_header)
-
-            if list_objs and len(list_objs) != 0:
+                writer = csv.DictWriter(f, fieldnames=headers)
                 for obj in list_objs:
-                    row = [getattr(obj, attr) for attr in attr_header]
-                    writer.writerow(row)
+                    writer.writerow(obj.to_dictionary())
 
     @classmethod
     def load_from_file_csv(cls):
-        """derializes in CSV
-
+        """loads dictionary of object attribute for use from csv file
         """
-        return []
+        filename = f'{cls.__name__}.csv'
+        try:
+            with open(filename, mode='r', encoding='utf-8') as f:
+                if cls.__name__ == 'Rectangle':
+                    fieldnames = ['id', 'width', 'height', 'x', 'y']
+                elif cls.__name__ == 'Square':
+                    fieldnames = ['id', 'size', 'x', 'y']
+
+                rows = csv.DictReader(f, fieldnames=fieldnames)
+                list_dicts = [dict((k, int(v)) for k, v in d.items())
+                              for d in rows]
+
+                return [cls.create(**d) for d in list_dicts]
+        except FileNotFoundError:
+            return []
