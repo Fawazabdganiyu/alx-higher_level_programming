@@ -7,6 +7,7 @@ Author: Fawaz Abdganiyu <fawazabdganiyu@gmail.com>
 """
 import json
 import csv
+import turtle
 
 
 class Base:
@@ -153,3 +154,35 @@ class Base:
                 return [cls.create(**d) for d in list_dicts]
         except FileNotFoundError:
             return []
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        """opens a window and draws all the Rectangles and Squares
+
+        Args:
+            list_rectangles (list): The list of Rectangle instance to draw
+            list_squares (list): The list of Square instance to draw
+
+        """
+        t = turtle.Turtle()
+        t.pencolor('brown')
+
+        for rect in list_rectangles:
+            t.up()
+            t.goto(rect.x, rect.y)
+            t.down()
+            for i in range(2):
+                t.forward(rect.width)
+                t.right(90)
+                t.backward(rect.height)
+                t.right(90)
+
+            t.color('pink')
+            for sqr in list_squres:
+                t.up()
+                t.goto(sqr.x, sqr.y)
+                t.down()
+                for i in range(4):
+                    t.fd(sqr.size)
+                    t.rt(90)
+            t.backword(rect.height)
