@@ -74,9 +74,17 @@ class TestBase(unittest.TestCase):
         empty_list = Base.to_json_string([])
         self.assertEqual(empty_list, '[]')
 
-    def test_Rectangle_save_to_file(self):
+    def test_rectangle_save_to_file(self):
         """Test that the expected Rectangle instance data is saved to the file
         """
+        r = Rectangle(1, 2)
+        Rectangle.save_to_file([r])
+
+        expected = ('[{"id": ' + f'{r.id}, ' +
+                    '"width": 1, "height": 2, "x": 0, "y": 0}]')
+        with open('Rectangle.json', mode='r', encoding='utf-8') as f:
+            self.assertEqual(f.read(), expected)
+
         r = Rectangle(2, 3, 0, 1, 4)
         r2 = Rectangle(4, 6, 2, 3, 9)
 
