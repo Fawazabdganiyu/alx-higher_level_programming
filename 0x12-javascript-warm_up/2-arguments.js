@@ -4,15 +4,14 @@
 // - If only one argument is passed, print "Argumnet found"
 // - Otherwise, print "Arguments found"
 
-const { argv } = require('node:process');
-// Deduct the execPath and the script path (-2)
-switch (argv.length - 2) {
-  case 0:
-    console.log('No argument');
-    break;
-  case 1:
-    console.log('Argument found');
-    break;
-  default:
-    console.log('Arguments found');
+// Remove the execPath and the script path by
+// slicing from the third element
+const args = process.argv.slice(2);
+
+if (args.length === 0) {
+  console.log('No argument');
+} else if (args.length === 1) {
+  console.log('Argument found');
+} else {
+  console.log('Arguments found');
 }
