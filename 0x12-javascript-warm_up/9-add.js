@@ -1,4 +1,4 @@
-#!/Usr-/bin/node
+#!/usr/bin/node
 
 const [x, y] = process.argv.slice(2);
 
