@@ -14,5 +14,5 @@ try {
 
   fs.writeFileSync(dest, concat);
 } catch (e) {
-  console.error('Usage: ./102-concat.js <FileA_Path> <FileB_Path> <destinationFilePath>');
+  // console.error('Usage: ./102-concat.js <FileA_Path> <FileB_Path> <destinationFilePath>');
 }
