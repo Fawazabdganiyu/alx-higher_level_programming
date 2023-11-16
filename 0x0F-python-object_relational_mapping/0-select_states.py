@@ -9,13 +9,9 @@ from sys import argv
 
 
 if __name__ == '__main__':
-    hostname = 'localhost'
-    port = 3306
-    username = argv[1]
-    password = argv[2]
-    database = argv[3]
+    username, password, database = argv[1:]
 
-    conn = MySQLdb.connect(host=hostname, port=port, user=username,
+    conn = MySQLdb.connect(host='localhost', port=3306, user=username,
                            passwd=password, db=database, charset='utf8')
     cur = conn.cursor()
 
@@ -24,3 +20,6 @@ if __name__ == '__main__':
 
     for row in rows:
         print(row)
+
+    cur.close()
+    conn.close()
