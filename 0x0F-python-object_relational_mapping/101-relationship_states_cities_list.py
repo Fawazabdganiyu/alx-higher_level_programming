@@ -12,7 +12,7 @@ from sqlalchemy.orm import sessionmaker
 
 if __name__ == '__main__':
     user, passwd, database = sys.argv[1:]
-    url = f'mysql+mysqldb://{user}:{passwd}@localhost/{database}'
+    url = 'mysql+mysqldb://{}:{}@localhost/{}'.format(user, passwd, database)
 
     engine = create_engine(url, pool_pre_ping=True)
 
