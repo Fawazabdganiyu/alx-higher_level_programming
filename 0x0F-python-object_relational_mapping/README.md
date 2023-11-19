@@ -43,3 +43,42 @@ session.close()
 But, the biggest difficulty with ORM is: The syntax!
 
 Indeed, all of them have the same type of syntax, but not always.
+
+# More Info
+## Install and activate venv
+To create a Python Virtual Environment, allowing you to install specific dependencies for this python project, we will install venv:
+```python
+$ sudo apt-get install python3.8-venv
+$ python3 -m venv venv
+$ source venv/bin/activate
+```
+## Install MySQLdb module version 2.2.x
+For installing MySQLdb, you need to have MySQL installed: [How to install MySQL 8.0 in Ubuntu 20.04](../0x0D-SQL_introduction/README.md)
+```python
+$ sudo apt-get install python3-dev
+$ sudo apt-get install libmysqlclient-dev
+$ sudo apt-get install zlib1g-dev
+$ sudo apt-get install pkg-config
+$ pip3 install mysqlclient
+...
+$ python3
+>>> import MySQLdb
+>>> MySQLdb.version_info
+(2, 2, 0, 'final', 0)
+```
+
+## Install SQLAlchemy module version 2.0.x
+```python
+$ pip3 install SQLAlchemy
+...
+$ python3
+>>> import sqlalchemy
+>>> sqlalchemy.__version__
+'2.0.23'
+```
+Also, you can have this warning message:
+```
+/usr/local/lib/python3.4/dist-packages/sqlalchemy/engine/default.py:552: Warning: (1681, "'@@SESSION.GTID_EXECUTED' is deprecated and will be removed in a future release.")
+  cursor.execute(statement, parameters)
+  ```
+  You can ignore it.
