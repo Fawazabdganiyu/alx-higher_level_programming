@@ -15,7 +15,6 @@ if __name__ == '__main__':
     url = 'mysql+mysqldb://{}:{}@localhost/{}'.format(user, passwd, database)
 
     engine = create_engine(url, pool_pre_ping=True)
-    Base.metadata.create_all(engine)
 
     Session = sessionmaker(bind=engine)
     session = Session()
