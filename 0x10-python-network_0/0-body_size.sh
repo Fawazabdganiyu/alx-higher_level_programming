@@ -1,3 +1,3 @@
 #!/bin/bash
 # Display the size of the body of http response
-curl -sI "$1" | grep "Content-Lenght" | awk '{print $2}'
+curl -sI "$1" | grep "Content-Length" | awk '{print $2}' | tr -d '\r'
