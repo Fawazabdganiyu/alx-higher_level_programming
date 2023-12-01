@@ -1,0 +1,2 @@
+# Complexity of the algorithm in `6-peak.py`
+O(log(n))
