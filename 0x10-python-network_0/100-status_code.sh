@@ -1,3 +1,3 @@
 #!/bin/bash
 # Display on an HTTP response status coode
-curl -sI "$1" | grep -e "HTTP.*" | awk '{print $2}' | tr -d '\r\n'
+curl -sw "%{http_code}" -o /dev/null "$1"
