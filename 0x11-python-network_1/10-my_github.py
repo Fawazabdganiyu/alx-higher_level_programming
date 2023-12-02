@@ -6,14 +6,11 @@ Description: Takes GitHub username and password and uses the GitHub API
 """
 import sys
 import requests
+from requests.auth import HTTPBasicAuth
 
 if __name__ == '__main__':
     username, passwd = sys.argv[1:]
-    headers = {}
-    headers['Accept'] = "application/vnd.github+json"
-    headers['Authorization'] = f"Bearer {passwd}"
-    headers['X-GitHub-Api-Version'] = "2022-11-28"
-    res = requests.get(f'https://api.github.com/users/{username}',
-                       headers=headers)
+    auth = HTTPBasicAuth(username, passwd)
+    res = requests.get(f'https://api.github.com/users/{username}', auth=auth)
 
     print(res.json().get('id'))
