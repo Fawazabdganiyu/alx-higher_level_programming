@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module Name: 3-error_code.py
+Module Name: 7-error_code.py
 Description: Sends a request to a URL and displays the body of the response
              decoded in `utf-8`
 """
