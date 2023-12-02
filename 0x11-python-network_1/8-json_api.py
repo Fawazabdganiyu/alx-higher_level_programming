@@ -14,7 +14,7 @@ if __name__ == '__main__':
     res = requests.post('http://0.0.0.0:5000/search_user', data=payload)
     try:
         json_body = res.json()
-    except requests.exceptions.JSONDecodeError:
+    except exceptions:
         print("Not a valid JSON")
     else:
         if len(json_body) != 0:
