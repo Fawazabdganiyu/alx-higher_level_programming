@@ -9,8 +9,16 @@ def find_peak(list_of_integers):
     """Find the largest number in a list of unsorted integers
     """
     int_list = list_of_integers[:]
-    peak = None
-    if int_list != []:
-        peak = max(int_list)
+    if int_list == []:
+        return None
 
-    return peak
+    peak = 0
+    last = len(int_list) - 1
+    while peak < last:
+        mid = (peak + last) // 2
+        if int_list[mid] < int_list[mid + 1]:
+            peak = mid + 1
+        else:
+            last = mid
+
+    return int_list[peak]
