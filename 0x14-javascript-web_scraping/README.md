@@ -15,7 +15,9 @@ $ sudo apt-get install -y nodejs
 
 ### Install semi-standard
 [Documentation](https://github.com/standard/semistandard)
-`$ sudo npm install semistandard --global`
+```
+$ sudo npm install semistandard --global
+```
 
 ### Install request module and use it
 [Documentation](https://github.com/request/request)
