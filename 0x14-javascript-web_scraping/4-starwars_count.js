@@ -8,16 +8,11 @@ request(url, (err, response, body) => {
     console.error(err);
   } else {
     try {
-      const films = JSON.parse(body).results;
-      let count = 0;
-      for (const film of films) {
-	for (const character of film.characters) {
-	  if (character === wedgeAntillesUrl) {
-	    count++;
-	  }
-	}
-      }
-      console.log(count);
+      const filmsData = JSON.parse(body).results;
+      const filmsWithWedge = filmsData.filter((film) => {
+	return film.characters.includes(wedgeAntillesUrl);
+      });
+      console.log(filmsWithWedge.length)
     } catch (err) {
       console.error(err);
     }
